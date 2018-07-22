@@ -2,7 +2,7 @@ export default class Todo {
   constructor(content) {
     this.content = content;
     this.status = Todo.ACTIVE;
-    this.viewId = generateUUID();
+    this.viewId = this.generateUUID();
   }
 
   static get ACTIVE() {

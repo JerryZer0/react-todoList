@@ -1,34 +1,58 @@
 import React from 'react';
+import Todo from '../models/Todod';
+import '../App.css';
 
 export default class Item extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      status: 'read'
+    };
+  }
+
+  changeToEditable() {
+    this.setState({
+      status: 'write'
+    });
+  }
+
+  updateItem(event, viewId, content) {
+    if (event.keyCode === 13) {
+      this.props.ipdateItemContent(viewId, content);
+      this.setState({ status: 'read' });
+    }
+  }
+
+  toggleActive(viewId) {
+    this.setState({ status: 'read' });
+    this.props.toggleActive(viewId);
   }
 
   render() {
-    let todo = this.props.todo;
+    let item = this.props.item;
     return (
-      <div>
-        <li
-          className={todo.checkOrNot ? 'checked' : ''}
-          onDoubleClick={this.ondblclick(todo.id)}
-        >
-          <input
-            name="done-todo"
-            type="checkbox"
-            className="done-todo"
-            onchange={() => {
-              this.checkItem(todo.id);
-              this.props.getItem(todo);
-            }}
-          />
-          {todo.text}
-        </li>
-      </div>
+      <li className={item.status}>
+        <input
+          type="checkbox"
+          className="done-todo"
+          defaultChecked={item.status === Todo.COMPLETED}
+          onClick={() => this.toggleActive(item.viewId)}
+        />
+        <span onDoubleClick={event => this.changeToEditable(event)}>
+          {this.state.status === 'read' ? (
+            item.conten
+          ) : (
+            <input
+              autoFocus
+              className="edit-input"
+              defaultValue={item.content}
+              onKeyUp={event =>
+                this.updateItem(event, item.viewId, event.currentTarget.value)
+              }
+            />
+          )}
+        </span>
+      </li>
     );
   }
-
-  ondblclick(id) {}
-
-  checkItem(itemId) {}
 }
