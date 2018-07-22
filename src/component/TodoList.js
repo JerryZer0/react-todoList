@@ -11,7 +11,7 @@ export default class TodoList extends React.Component {
     super(props);
     this.todosAPI = todosAPI;
     this.state = {
-      addOrNot: false,
+      statusOfList: Todo.ALL,
       items: []
     };
   }
@@ -48,9 +48,7 @@ export default class TodoList extends React.Component {
                 <Item
                   item={item}
                   key={item.viewId}
-                  toggleActiveHandler={viewId =>
-                    this.toggleActiveHandler(viewId)
-                  }
+                  toggleActiveHandler={viewId => this.toggleActive(viewId)}
                   updateItemConten={(viewId, content) =>
                     this.updateItemConten(viewId, content)
                   }
@@ -65,7 +63,7 @@ export default class TodoList extends React.Component {
               <a
                 href="#all"
                 onClick={event => this.showFilterList(event)}
-                fate-filter="all"
+                data-filter="all"
                 className={classNames({
                   selected: this.state.statusOfList === Todo.ALL
                 })}
@@ -77,7 +75,7 @@ export default class TodoList extends React.Component {
               <a
                 href="#active"
                 onClick={event => this.showFilterList(event)}
-                fate-filter="active"
+                data-filter="active"
                 className={classNames({
                   selected: this.state.statusOfList === Todo.ACTIVE
                 })}
@@ -89,7 +87,7 @@ export default class TodoList extends React.Component {
               <a
                 href="#complete"
                 onClick={event => this.showFilterList(event)}
-                fate-filter="complete"
+                data-filter="complete"
                 className={classNames({
                   selected: this.state.statusOfList === Todo.ACTIVE
                 })}
@@ -127,7 +125,7 @@ export default class TodoList extends React.Component {
     return JSON.parse(JSON.stringify(items));
   }
 
-  toggleActiveHandler(viewId) {
+  toggleActive(viewId) {
     console.log(this.todosAPI.filerByStatus(this.state.statusOfList));
     this.todosAPI.toggleActive(viewId);
     const items = this.deepCopy(
@@ -142,5 +140,12 @@ export default class TodoList extends React.Component {
       this.todosAPI.filerByStatus(this.state.statusOfList)
     );
     this.setState({ items, statusOfList: this.state.statusOfList });
+  }
+
+  showFilterList(event) {
+    const statusOfList = event.target.attributes.getNamedItem('data-filter')
+      .value;
+    const items = this.deepCopy(this.todosAPI.filerByStatus(statusOfList));
+    this.setState({ items, statusOfList });
   }
 }

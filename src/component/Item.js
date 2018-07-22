@@ -1,6 +1,6 @@
 import React from 'react';
 import Todo from '../models/Todo';
-import '../App.css';
+import '../index.css';
 
 export default class Item extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class Item extends React.Component {
   }
 
   toggleActive(viewId) {
-    console.log(viewId);
+    //console.log(viewId);
     this.setState({ status: 'read' });
     this.props.toggleActiveHandler(viewId);
   }
@@ -33,15 +33,18 @@ export default class Item extends React.Component {
     let item = this.props.item;
     return (
       <li className={item.status}>
-        <input
-          type="checkbox"
-          className="done-todo"
-          defaultChecked={item.status === Todo.COMPLETED}
-          onClick={() => this.toggleActive(item.viewId)}
-        />
+        {
+          <input
+            type="checkbox"
+            className="done-todo"
+            defaultChecked={item.status === Todo.COMPLETED}
+            onClick={e => this.toggleActive(item.viewId)}
+          />
+        }
+
         <span onDoubleClick={event => this.changeToEditable(event)}>
           {this.state.status === 'read' ? (
-            item.conten
+            item.content
           ) : (
             <input
               autoFocus
