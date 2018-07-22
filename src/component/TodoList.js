@@ -51,8 +51,8 @@ export default class TodoList extends React.Component {
                   toggleActiveHandler={viewId =>
                     this.toggleActiveHandler(viewId)
                   }
-                  updateItemConten={(viewId, content) =>
-                    this.updateItemConten(viewId, content)
+                  updateItemContent={(viewId, content) =>
+                    this.updateItemContent(viewId, content)
                   }
                 />
               ));
@@ -136,7 +136,7 @@ export default class TodoList extends React.Component {
     this.setState({ items });
   }
 
-  updateItemConten(viewId, content) {
+  updateItemContent(viewId, content) {
     this.todosAPI.updateItemContent(viewId, content);
     const items = this.deepCopy(
       this.todosAPI.filerByStatus(this.state.statusOfList)
