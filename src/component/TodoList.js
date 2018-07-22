@@ -1,6 +1,9 @@
 import React from 'react';
 import AddItem from './AddItem';
-import ItemList from './ItemList';
+import '../index.css';
+import classNames from 'classnames';
+import Item from './Item';
+import Todo from '../models/Todod';
 
 export default class TodoList extends React.Component {
   constructor(props) {
@@ -18,26 +21,83 @@ export default class TodoList extends React.Component {
           <em>Simple Todo List with adding and filter by diff status.</em>
         </p>
         <br />
-        <AddItem getItem={this.getItem} />
-        <br />
-        <ItemList
-          addOrNot={state => {
-            this.setStsate({ addOrNot: state });
-            this.addItems;
-          }}
-          items={this.state.items}
+        {/* <AddItem getItem={this.getItem} /> */}
+        <input
+          className="input-text"
+          onKeyUp={event => this.add(event)}
+          id="todo-creator"
+          ref="newItem"
         />
+        <div className="button" onClick={e => this.add()}>
+          Add
+        </div>
+        <br />
+        <div>
+          <ol>
+            {(() => {
+              return this.state.items.map(item => (
+                <Item
+                  item={item}
+                  key={item.viewId}
+                  toggleItemConten={(viewId, content) =>
+                    this.updateItemConten(viewId, content)
+                  }
+                />
+              ));
+            })()}
+          </ol>
+        </div>
+        <div>
+          <ul className="filters">
+            <li>
+              <a
+                href="#all"
+                onClick={event => this.showFilterList(event)}
+                fate-filter="all"
+                className={classNames({
+                  selected: this.state.statusOfList === Todo.ALL
+                })}
+              >
+                All
+              </a>
+            </li>
+            <li>
+              <a
+                href="#active"
+                onClick={event => this.showFilterList(event)}
+                fate-filter="active"
+                className={classNames({
+                  selected: this.state.statusOfList === Todo.ACTIVE
+                })}
+              >
+                Active
+              </a>
+            </li>
+            <li>
+              <a
+                href="#complete"
+                onClick={event => this.showFilterList(event)}
+                fate-filter="complete"
+                className={classNames({
+                  selected: this.state.statusOfList === Todo.ACTIVE
+                })}
+              >
+                Complete
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     );
   }
 
-  getItem = item => {
-    let items = this.state.items;
-    items.push(item);
-    this.setState({ items });
-    this.render();
-  };
-
+  // getItem = item => {
+  //     let items = this.state.items;
+  //     items.push(item);
+  //     this.setState({ items });
+  //     this.render();
+  // };
+  add(event) {}
   //   generateUUID() {
   //     var i, random;
   //     var uuid = '';

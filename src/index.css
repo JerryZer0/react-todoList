@@ -4,11 +4,11 @@
   font-family: sans-serif;
 } */
 body {
-  font: normal normal 13px/16px "Open Sans", sans-serif;
+  font: normal normal 13px/16px 'Open Sans', sans-serif;
   background: #ccc;
 }
 
-.container{
+.container {
   padding: 20px;
   width: 400px;
   margin: 0 auto;
@@ -17,29 +17,28 @@ body {
   border-radius: 5px;
 }
 
-.input-text{
+.input-text {
   width: 65%;
 }
 
-input{
+input {
   padding: 4px 15px 4px 0;
-  
 }
 
-#button{
-display: inline-block;
-background-color:#30aee9;
-color:#ffffff;
-border-radius: 5px;
-text-align:center;
-margin-top:2px;
-padding: 5px 15px;
-margin-left:5px;
+.button {
+  display: inline-block;
+  background-color: #30aee9;
+  color: #ffffff;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 2px;
+  padding: 5px 15px;
+  margin-left: 5px;
 }
 
-#button:hover{
-cursor: pointer;
-opacity: .8;
+.button:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 ol {
@@ -47,26 +46,26 @@ ol {
 }
 
 ol li {
-  padding: 5px;color:#000;
+  padding: 5px;
+  color: #000;
 }
 
-ol li:nth-child(even){
+ol li:nth-child(even) {
   background: #f4ecec;
 }
 
-li:hover{
-cursor: pointer;
+li:hover {
+  cursor: pointer;
 }
 
-#filters{
-   text-align: center;
-   margin-bottom: -10px;
-   margin-top: 40px;
-
+.filters {
+  text-align: center;
+  margin-bottom: -10px;
+  margin-top: 40px;
 }
 
-#filters li a {
-  color: #fc999b;
+.filters li a {
+  color: #30aee9;
   margin: 3px;
   padding: 3px 7px;
   text-decoration: none;
@@ -74,18 +73,19 @@ cursor: pointer;
   border-radius: 3px;
 }
 
-#filters li a.selected {
+.filters li a.selected {
   border-color: rgba(175, 47, 47, 0.2);
 }
-#filters li a.selected, #filters li a:hover {
+.filters li a.selected,
+.filters li a:hover {
   border-color: rgba(175, 47, 47, 0.1);
 }
 
-#filters li {
-display: inline;
-margin: 0 0 5px 0;
-padding: 8px;
-list-style: none;
+.filters li {
+  display: inline;
+  margin: 0 0 5px 0;
+  padding: 8px;
+  list-style: none;
   outline: none;
 }
 
@@ -94,7 +94,6 @@ list-style: none;
   text-decoration: line-through;
 }
 
-input[type=checkbox].done-todo { 
-
-  margin: 5px 5px 2px 0; 
+input[type='checkbox'].done-todo {
+  margin: 5px 5px 2px 0;
 }
