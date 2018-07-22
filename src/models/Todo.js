@@ -10,10 +10,10 @@ export default class Todo {
   }
 
   static get COMPLETED() {
-    return 'completed';
+    return 'complete';
   }
 
-  static get All() {
+  static get ALL() {
     return 'all';
   }
 

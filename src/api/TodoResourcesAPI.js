@@ -6,9 +6,13 @@ const todosAPI = {
     this.todos.push(item);
   },
   filerByStatus(status) {
+    //  console.log("status="+status)
+    //  console.log("Todo.ALL="+Todo.ALL)
     if (status === Todo.ALL) {
+      //console.log("API"+this.todos)
       return this.todos;
     }
+    //console.log("API"+this.todos)
     return this.todos.filter(item => item.status === status);
   },
   toggleActive(viewId) {

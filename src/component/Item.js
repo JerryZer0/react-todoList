@@ -24,7 +24,7 @@ export default class Item extends React.Component {
   }
 
   toggleActive(viewId) {
-    //console.log(viewId);
+    // console.log(viewId);
     this.setState({ status: 'read' });
     this.props.toggleActiveHandler(viewId);
   }
