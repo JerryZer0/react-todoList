@@ -12,7 +12,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to todoList</h1>
         </header>
         <hr />
-        <div class="container">
+        <div className="container">
           <TodoList />
         </div>
       </div>

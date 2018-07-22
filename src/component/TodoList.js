@@ -3,16 +3,25 @@ import AddItem from './AddItem';
 import '../index.css';
 import classNames from 'classnames';
 import Item from './Item';
-import Todo from '../models/Todod';
+import Todo from '../models/Todo';
+import todosAPI from '../api/TodoResourcesAPI';
 
 export default class TodoList extends React.Component {
   constructor(props) {
     super(props);
+    this.todosAPI = todosAPI;
     this.state = {
       addOrNot: false,
       items: []
     };
   }
+
+  componentDidMount() {
+    this.setState({
+      items: this.deepCopy(this.todosAPI.filerByStatus(Todo.ALL))
+    });
+  }
+
   render() {
     return (
       <div>
@@ -28,7 +37,7 @@ export default class TodoList extends React.Component {
           id="todo-creator"
           ref="newItem"
         />
-        <div className="button" onClick={e => this.add()}>
+        <div className="button" onClick={e => this.add(e)}>
           Add
         </div>
         <br />
@@ -39,7 +48,10 @@ export default class TodoList extends React.Component {
                 <Item
                   item={item}
                   key={item.viewId}
-                  toggleItemConten={(viewId, content) =>
+                  toggleActiveHandler={viewId =>
+                    this.toggleActiveHandler(viewId)
+                  }
+                  updateItemConten={(viewId, content) =>
                     this.updateItemConten(viewId, content)
                   }
                 />
@@ -97,20 +109,38 @@ export default class TodoList extends React.Component {
   //     this.setState({ items });
   //     this.render();
   // };
-  add(event) {}
-  //   generateUUID() {
-  //     var i, random;
-  //     var uuid = '';
 
-  //     for (i = 0; i < 32; i++) {
-  //       random = (Math.random() * 16) | 0;
-  //       if (i === 8 || i === 12 || i === 16 || i === 20) {
-  //         uuid += '-';
-  //       }
-  //       uuid += (i === 12 ? 4 : i === 16 ? (random & 3) | 8 : random).toString(
-  //         16
-  //       );
-  //     }
-  //     return uuid;
-  //   }
+  add(event) {
+    if (event.keyCode === 13 || event.button === 0) {
+      const inputText = this.refs.newItem.value;
+      this.todosAPI.add(new Todo(inputText));
+      //console.log(this.todosAPI.todos[0])
+      const items = this.deepCopy(
+        this.todosAPI.filerByStatus(this.state.statusOfList)
+      );
+      //console.log(items)
+      this.setState({ items });
+      this.refs.newItem.value = '';
+    }
+  }
+  deepCopy(items) {
+    return JSON.parse(JSON.stringify(items));
+  }
+
+  toggleActiveHandler(viewId) {
+    console.log(this.todosAPI.filerByStatus(this.state.statusOfList));
+    this.todosAPI.toggleActive(viewId);
+    const items = this.deepCopy(
+      this.todosAPI.filerByStatus(this.state.statusOfList)
+    );
+    this.setState({ items });
+  }
+
+  updateItemConten(viewId, content) {
+    this.todosAPI.updateItemContent(viewId, content);
+    const items = this.deepCopy(
+      this.todosAPI.filerByStatus(this.state.statusOfList)
+    );
+    this.setState({ items, statusOfList: this.state.statusOfList });
+  }
 }

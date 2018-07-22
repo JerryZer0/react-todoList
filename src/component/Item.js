@@ -1,5 +1,5 @@
 import React from 'react';
-import Todo from '../models/Todod';
+import Todo from '../models/Todo';
 import '../App.css';
 
 export default class Item extends React.Component {
@@ -18,14 +18,15 @@ export default class Item extends React.Component {
 
   updateItem(event, viewId, content) {
     if (event.keyCode === 13) {
-      this.props.ipdateItemContent(viewId, content);
+      this.props.updateItemContent(viewId, content);
       this.setState({ status: 'read' });
     }
   }
 
   toggleActive(viewId) {
+    console.log(viewId);
     this.setState({ status: 'read' });
-    this.props.toggleActive(viewId);
+    this.props.toggleActiveHandler(viewId);
   }
 
   render() {
